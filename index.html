@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Make a QR code</title>
+        <style>
+            canvas {
+                display: block;
+                margin: auto;
+            }
+
+            button {
+                display: block;
+                font-size: 28px;
+                margin: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <button type="button" id="print">Print</button>
+        <button type="button" id="save">Save</button>
+        <canvas id="canvas"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.2/build/qrcode.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/print-js@1.0.61/dist/print.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
+        <script>
+            QRCode.toCanvas(document.getElementById('canvas'), 'https://demo.publica.la/reader/interactive-epub', error => {
+                if (error) console.error(error);
+                console.log('success!');
+            });
+
+            document.querySelector('#print').addEventListener('click', event => {
+                printJS({
+                    printable: 'canvas',
+                    type: 'html',
+                    header: 'https://demo.publica.la/reader/interactive-epub',
+                });
+            });
+
+            document.querySelector('#save').addEventListener('click', event => {
+                const canvas = document.querySelector('#canvas');
+                // draw to canvas...
+                canvas.toBlob(function(blob) {
+                    saveAs(blob, 'interactive-epub');
+                });
+            });
+        </script>
+    </body>
+</html>
