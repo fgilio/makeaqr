@@ -26,7 +26,11 @@
         <script src="https://cdn.jsdelivr.net/npm/print-js@1.0.61/dist/print.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
         <script>
-            QRCode.toCanvas(document.getElementById('canvas'), 'https://demo.publica.la/reader/interactive-epub', error => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const url = decodeURIComponent(urlParams.get('url'));
+            const name = decodeURIComponent(urlParams.get('name'));
+
+            QRCode.toCanvas(document.getElementById('canvas'), url, error => {
                 if (error) console.error(error);
                 console.log('success!');
             });
@@ -35,7 +39,7 @@
                 printJS({
                     printable: 'canvas',
                     type: 'html',
-                    header: 'https://demo.publica.la/reader/interactive-epub',
+                    header: url,
                 });
             });
 
@@ -43,7 +47,7 @@
                 const canvas = document.querySelector('#canvas');
                 // draw to canvas...
                 canvas.toBlob(function(blob) {
-                    saveAs(blob, 'interactive-epub');
+                    saveAs(blob, name);
                 });
             });
         </script>
