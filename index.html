@@ -45,6 +45,8 @@
             const urlParams = new URLSearchParams(window.location.search);
             const url = decodeURIComponent(urlParams.get('url'));
             const name = decodeURIComponent(urlParams.get('name'));
+            const printButtonCopy = decodeURIComponent(urlParams.get('print_copy'));
+            const downloadButtonCopy = decodeURIComponent(urlParams.get('download_copy'));
 
             QRCode.toCanvas(document.getElementById('canvas'), url, error => {
                 if (error) console.error(error);
