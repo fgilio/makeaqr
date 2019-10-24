@@ -19,9 +19,9 @@
     </head>
     <body>
         <div>
-            <div class="m-auto" id="printable">
+            <div class="m-auto printable" id="printable">
                 <div class="m-auto text-center font-sans mb-3">
-                    <h3 class="name font-semibold text-2xl text-gray-700" id="name"></h3>
+                    <h3 class="name font-semibold text-2xl text-gray-700 break-words" id="name"></h3>
                 </div>
                 <div class="my-3">
                     <canvas class="canvas" id="canvas"></canvas>
@@ -58,7 +58,7 @@
                     printable: 'printable',
                     type: 'html',
                     header: url,
-                    style: '.canvas{min-width: 350px;min-height: 350px; margin: auto;} .name{font-size: 25px; font-family: sans-serif; text-align: center; margin: 16px auto;}',
+                    style: '.canvas{min-width: 350px;min-height: 350px; margin: auto;} .name{font-size: 25px; font-family: sans-serif; text-align: center; margin: 16px auto;}.printable{margin: 16px auto;}',
                     headerStyle: 'margin: 16px auto; font-size: 16px; font-family: sans-serif; text-align: center; '
                 });
             });
