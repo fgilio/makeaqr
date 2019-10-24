@@ -68,6 +68,17 @@
                     saveAs(blob, name);
                 });
             });
+
+            if (name !== 'null') {
+                document.querySelector('#name').innerText = name;
+            }
+            if (downloadButtonCopy !== 'null') {
+                console.log(downloadButtonCopy);
+                document.querySelector('#save span').innerText = downloadButtonCopy;
+            }
+            if (printButtonCopy !== 'null') {
+                document.querySelector('#print span').innerText = printButtonCopy;
+            }
         </script>
     </body>
 </html>
