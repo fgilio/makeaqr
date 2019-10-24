@@ -71,6 +71,10 @@
                 });
             });
 
+            /*
+             * We check if null like string because `decodeURIComponent` return data
+             * like string
+             */
             if (name !== 'null') {
                 document.querySelector('#name').innerText = name;
             }
