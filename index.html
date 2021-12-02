@@ -18,7 +18,7 @@
         </style>
     </head>
     <body class="flex items-center justify-center h-screen">
-        <div>
+        <div id="qrContainer">
             <div class="m-auto printable" id="printable">
                 <div class="m-auto text-center font-sans mb-3">
                     <h3 class="name font-semibold text-2xl text-gray-700 break-words" id="name"></h3>
@@ -88,6 +88,22 @@
             if (showActionButtons === 'false') {
                 document.querySelector('#actionButtons').classList.add('hidden');
             }
+
+            /**
+             * We're sending QR container size to use in the parent to set correctly
+             * the height and the width according the content.
+            */
+            const qrContainer = document.querySelector('#qrContainer');
+            window.parent.postMessage(
+                {
+                    type: 'event',
+                    payload: {
+                        height: qrContainer.offsetHeight,
+                        width: qrContainer.offsetWidth,
+                    },
+                },
+                '*'
+            );
         </script>
     </body>
 </html>
