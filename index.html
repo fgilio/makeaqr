@@ -11,6 +11,10 @@
                 display: block;
                 margin: auto;
             }
+            canvas.takeContainerSize {
+                width: 100% !important;
+                height: 100% !important;
+            }
 
             button {
                 display: block;
@@ -48,6 +52,8 @@
             const printButtonCopy = decodeURIComponent(urlParams.get('print_copy'));
             const downloadButtonCopy = decodeURIComponent(urlParams.get('download_copy'));
             const showActionButtons = decodeURIComponent(urlParams.get('show_action_buttons'));
+            const maxWidth = decodeURIComponent(urlParams.get('max_width'));
+            const maxHeight = decodeURIComponent(urlParams.get('max_height'));
 
             QRCode.toCanvas(document.getElementById('canvas'), url, error => {
                 if (error) console.error(error);
@@ -73,8 +79,8 @@
             });
 
             /*
-             * We check if null like string because `decodeURIComponent` return data
-             * like string
+             * We're checking `null` like string because `decodeURIComponent` return
+             * the data like string
              */
             if (name !== 'null') {
                 document.querySelector('#name').innerText = name;
@@ -89,21 +95,17 @@
                 document.querySelector('#actionButtons').classList.add('hidden');
             }
 
-            /**
-             * We're sending QR container size to use in the parent to set correctly
-             * the height and the width according the content.
-            */
-            const qrContainer = document.querySelector('#qrContainer');
-            window.parent.postMessage(
-                {
-                    type: 'event',
-                    payload: {
-                        height: qrContainer.offsetHeight,
-                        width: qrContainer.offsetWidth,
-                    },
-                },
-                '*'
-            );
+            /*
+             * Set canvas to take 100% of his container if max-width or max-height is passing
+             * in the URL and avoid to crop the QR when this is shown using a iframe.
+             */
+            if (maxWidth != 'null' || maxHeight != 'null') {
+                document.querySelector('canvas').classList.add('takeContainerSize');
+            }
+
+            const qrContainer =  document.querySelector('#qrContainer');
+            qrContainer.style.maxWidth = maxWidth != 'null' ? `${maxWidth}px` : '';
+            qrContainer.style.maxHeight = maxHeight != 'null' ? `${maxHeight}px` : '';
         </script>
     </body>
 </html>
